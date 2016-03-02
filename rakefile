@@ -1,0 +1,14 @@
+require 'cucumber'
+require 'cucumber/rake/task'
+require 'fileutils'
+
+
+desc "main rake task"
+task :wip, [:host, :tag] do |t, args|
+  Cucumber::Rake::Task.new(:run) do |t|
+    ENV['HOST'] = args[:host]
+    ENV['TAG'] = args[:tag]
+    t.profile = "tagged_build"
+  end
+  Rake::Task[:run].invoke()
+end
